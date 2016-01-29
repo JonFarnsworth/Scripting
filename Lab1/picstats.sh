@@ -10,4 +10,4 @@ echo "The pictures in the Pictures directory uses (in Mbytes)"
 du -sh ~/workspace/Pictures
 
 echo "The three largest files are"
-du -h ~/workspace/Pictures/* | sort hr | head -n3
+du -h ~/workspace/Pictures/* | sort -hr | head -n3
