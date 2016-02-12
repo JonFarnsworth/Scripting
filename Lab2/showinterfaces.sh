@@ -5,8 +5,6 @@
 
 # MAIN
 ##############
-interfaces=('ifconfig | grep '^[A-Za-z]' | awk "{print $1}"')
-
 eth0=$(ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}')
 echo "The ethernet connection has the address of $eth0"
 lo=$(ifconfig lo | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}')
