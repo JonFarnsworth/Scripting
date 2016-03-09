@@ -1,5 +1,11 @@
 #!/bin/bash
 
+if [ "$1" == "-h" ]; then
+  echo Usage: [SCRIPT]... [NUMBER]... [NUMBER]...
+  echo      -h  display this help
+  exit 0
+fi
+
 if [ ! "$count" ]; then
     read -p "How many dice? [1-5]. Default is 2: " numdice
     if [[ "$numdice" =~ ^[1-5]$ ]]; then
@@ -21,3 +27,4 @@ if [ ! "$sides" ]; then
         fi
     fi
 fi
+
