@@ -45,8 +45,13 @@ function countdown_to() {
 }
 
 function error_exit {
+<<<<<<< HEAD
     echo "$1" >&2   ## Send message to stderr. Exclude >&2 if you don't want it that way.
     exit "${2:-1}"  ## Return a code specified by $2 or 1 by default.
+=======
+    echo "$1" >&2 
+    exit "${2:-1}"
+>>>>>>> fd2910ad6d0846dfdc1d3b9935b2b5a22662c961
 }
 
 [[ $TRESHOLD =~ []+$ ]] || error_exit "Nope, not what I'm looking for."
