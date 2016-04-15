@@ -27,4 +27,3 @@ if [ ! "$sides" ]; then
         fi
     fi
 fi
-

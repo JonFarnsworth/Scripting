@@ -11,3 +11,10 @@ du -sh ~/workspace/Pictures
 
 echo "The three largest files are"
 du -h ~/workspace/Pictures/* | sort -hr | head -n3
+
+function error_exit {
+    echo "$1" >&2  
+    exit "${2:-1}" 
+}
+
+[[ $TRESHOLD =~ []+$ ]] || error_exit "Nope, not what I'm looking for."

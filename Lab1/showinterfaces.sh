@@ -1,15 +1,21 @@
 #!/bin/bash
 
-#How to pull up the IP address and Default gateway
 
+showroute=0
+declare -A justip
+declare -a justface
+declare -a multiface
 
-# MAIN
-##############
-eth0=$(ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}')
-echo "The ethernet connection has the address of $eth0"
+$multiface= ( ifconfig | cut -d' ' -f1 )
 
-lo=$(ifconfig lo | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}')
-echo "The loopback address is $lo"
-
-route=$(route -n | awk '{$1=""; $3=""; $4=""; $5=""; $6=""; $7=""; $8=""; print}' | sed '3!d')
-echo "The default gateway has the address of $route"
+while [ $# -gt 0 ]; do
+    case "$1" in
+    -r|--route )
+        showroute=1
+        ;;
+    *)
+        justface+=("$1") 
+        ;;
+    esac
+    shift
+done

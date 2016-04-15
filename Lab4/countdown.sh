@@ -1,13 +1,52 @@
 #!/bin/bash
 
-sek=60
-echo "60 Seconds Wait!"
-echo -n "One Moment please "
-while [ $sek -ge 1 ]
-do
-   echo -n "$sek "  
-sleep 1
-   sek=$[$sek-1]
-done
-echo
-echo "ready!
+function _curr-timeval() {
+	date +'%s'
+}
+
+function countdown() {
+	echo 'Now:              '$(date)
+	echo 'Counting down to: '$(date --date="@$TIMEVAL")
+	
+	while true ; do
+		local CURR_TIMEVAL=$(_curr-timeval)
+		local DELAY=$((TIMEVAL - CURR_TIMEVAL))
+		if ! [ $DELAY -gt 0 ] ; then
+			break
+		fi
+		echo -ne "$DELAY \r"
+		sleep 1
+	done
+	echo ' '
+}
+
+function countdown() {
+	local DELAY=$1
+	if [ "$DELAY" == "" ] ; then
+		echo "Expected parameter in seconds!" >&2
+		return 1
+	fi
+	local CURR_TIMEVAL=$(_curr-timeval)
+	local TIMEVAL=$((CURR_TIMEVAL + DELAY))
+	_countdown $TIMEVAL
+}
+
+function countdown_to() {
+	local TIME=$1
+	if [ "$TIME" == "" ] ; then
+		echo "Expected timestamp parameter!" >&2
+		return 1
+	fi
+	local TIMEVAL=$(date --date="$TIME" +'%s')
+	if [ "$TIMEVAL" == "" ] ; then
+		return 1
+	fi
+	_countdown $TIMEVAL
+}
+
+function error_exit {
+    echo "$1" >&2   ## Send message to stderr. Exclude >&2 if you don't want it that way.
+    exit "${2:-1}"  ## Return a code specified by $2 or 1 by default.
+}
+
+[[ $TRESHOLD =~ []+$ ]] || error_exit "Nope, not what I'm looking for."
